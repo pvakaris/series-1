@@ -10,7 +10,7 @@ This is a RASCAL program that analyses Java projects and prints analysis of thei
 
 ## Report
 
-Report can be found [here](/).
+Report can be found [here](report.pdf).
 
 ## Copyrights
 
