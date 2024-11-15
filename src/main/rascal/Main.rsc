@@ -7,14 +7,15 @@ import String;
 import lang::java::m3::Core;
 import lang::java::m3::AST;
 import utils::Utils;
+import Constants;
 
 void runAnalysisOn(loc project) {
     // TODO: Implement the analysis by calling different methods and printing the results
 }
 
 void main() {
-    runAnalysisOn(|cwd:///test-projects/smallsql0.21_src|);
-    // runAnalysisOn(|cwd:///test-projects/hsqldb-2.3.1/hsqldb/src|);
+    runAnalysisOn(SMALLSQL_PROJECT);
+    // runAnalysisOn(HSQLDB_PROJECT);
 }
 
 /* 
@@ -23,7 +24,6 @@ void main() {
 */
 void testMethod() {
     println("Test method started. Calculating the total number of declarations.");
-    loc projectLocation = |cwd:///test-projects/smallsql0.21_src|; 
-    list[Declaration] asts = getASTs(projectLocation); 
+    list[Declaration] asts = getASTs(SMALLSQL_PROJECT); 
     println("Total number of declarations is: <size(asts)>");
 }
