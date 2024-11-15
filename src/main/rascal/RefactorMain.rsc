@@ -7,7 +7,8 @@ import String;
 import Map;
 import lang::java::m3::Core;
 import lang::java::m3::AST;
-import utils::Utils;
+import utils::Helpers;
+import Constants;
 
 /*
     TODO: 
@@ -17,11 +18,6 @@ import utils::Utils;
 
         Finally, this file should be removed
 */
-
-list[Declaration] smallSQLASTs() {
-    loc projectLocation = |cwd:///test-projects/smallsql0.21_src|; 
-    return getASTs(projectLocation);
-}
 
 int getNumberOfInterfaces(list[Declaration] asts) {
     int interfaces = 0;
