@@ -14,6 +14,10 @@ import utils::Logger;
 
 import metrics::Volume;
 import metrics::Duplicates;
+import metrics::UnitSize;
+import metrics::UnitComplexity;
+import metrics::Maintainability;
+import metrics::UnitTesting;
 
 import Constants;
 
@@ -26,9 +30,12 @@ void runAnalysisOn(loc project, str projectName) {
     analyseVolume(project);
     logDashedLine();
     analyseDuplicates(project);
+    // logDashedLine();
+    // analyseUnitTesting(project);
 
     // TODO: Extend by adding more analysis here
-
+    logDashedLine();
+    analyseMaintainability(project);
     logDashedLine();
     interval runtime = createInterval(startTime, now());
     logDuration("Analysis of the project took:", createDuration(runtime));
@@ -37,7 +44,7 @@ void runAnalysisOn(loc project, str projectName) {
 
 void main() {
     logDashedLine();
-    runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
+    // runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
     // runAnalysisOn(HSQLDB_CWD, "HSQLDB Project");
     runAnalysisOn(CURRENCY_CONVERTER_CWD, "Currency converter project");
 }
@@ -78,4 +85,24 @@ private void analyseDuplicates(project) {
 
     str duplicatesEvaluation = evaluateDuplicates(percentage);
     log("Duplication ranking: <duplicatesEvaluation>");
+}
+
+private void analyseUnitTesting(project) {
+    log("Unit testing:");
+    logDashedLine();
+    
+    real coverage = countUnitTestingCoverage(project);
+    log("Coverage: <coverage>");
+    log("Unit testing ranking: <evaluateUnitTesting(coverage)>");
+}
+
+private void analyseMaintainability(project) {
+    log("MAINTAINABILITY:");
+    logDashedLine();
+    
+    log("Analysability: <analysability(project)>");
+    log("Changeability: <changeability(project)>");
+    // log("Stability: <stability(project)>");
+    log("Testability: <testability(project)>");
+    log("Overall maintainability: <maintainability(project)>");
 }

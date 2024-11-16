@@ -72,6 +72,11 @@ list[list[str]] filterStringifiedProject(list[list[str]] stringifiedProject, lis
     return filteredProject;
 }
 
+// My own map fuction, because it does not exist in the standard library
+bool hasKey(map[str, int] mp, str key) {
+    return key in mp;
+}
+
 // DIFFERENT STRING FILTERS
 
 bool removeEmptyLines(str line) {

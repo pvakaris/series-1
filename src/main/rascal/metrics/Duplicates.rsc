@@ -10,6 +10,10 @@ import Set;
 import String;
 
 import utils::Helpers;
+import utils::Calculator;
+import utils::Logger;
+
+import metrics::Volume;
 
 import Constants;
 
@@ -23,6 +27,12 @@ int countDuplicates(loc project) {
 
     map[str k, int v] codeBlocks = findDuplicates(stringifiedProject);
     return sum([v | k <- codeBlocks, v := codeBlocks[k]]);
+}
+
+real countDuplicatesPercentage(loc project) {
+    int duplicates = countDuplicates(project);
+    int totalLines = computeProjectMetric(project, countLines);
+    return toReal(percent(duplicates, totalLines));
 }
 
 // Build a map of blocks of code and the number of duplicates found in them
@@ -53,9 +63,4 @@ map[str, int] findDuplicates(list[list[str]] project) {
         }
     }
     return codeBlocks;
-}
-
-// My own map fuction, because it does not exist in the standard library
-private bool hasKey(map[str, int] mp, str key) {
-    return key in mp;
 }
