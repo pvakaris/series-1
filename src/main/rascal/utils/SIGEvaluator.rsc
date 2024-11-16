@@ -1,6 +1,6 @@
 module utils::SIGEvaluator
 
-str evaluateDuplicates(int duplicatesPercent) {
+str evaluateDuplicates(real duplicatesPercent) {
     if (duplicatesPercent < 3) return "++";
     if (duplicatesPercent < 5) return "+";
     if (duplicatesPercent < 10) return "o";

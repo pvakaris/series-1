@@ -8,6 +8,7 @@ import lang::java::m3::Core;
 import lang::java::m3::AST;
 
 import utils::Helpers;
+import utils::Calculator;
 import utils::SIGEvaluator;
 import utils::Logger;
 
@@ -23,7 +24,7 @@ void runAnalysisOn(loc project, str projectName) {
     logDashedLine();
 
     analyseVolume(project);
-    logEmptyLine();
+    logDashedLine();
     analyseDuplicates(project);
 
     // TODO: Extend by adding more analysis here
@@ -32,12 +33,13 @@ void runAnalysisOn(loc project, str projectName) {
     interval runtime = createInterval(startTime, now());
     logDuration("Analysis of the project took:", createDuration(runtime));
     logDashedLine();
-    logEmptyLine();
 }
 
 void main() {
-    runAnalysisOn(SMALLSQL_PROJECT, "SmallSQL Project");
-    // runAnalysisOn(HSQLDB_PROJECT, "HSQLDB Project");
+    logDashedLine();
+    runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
+    // runAnalysisOn(HSQLDB_CWD, "HSQLDB Project");
+    runAnalysisOn(CURRENCY_CONVERTER_CWD, "Currency converter project");
 }
 
 // PRIVATE METHODS
@@ -62,5 +64,18 @@ private void analyseVolume(project) {
 }
 
 private void analyseDuplicates(project) {
-    // TODO:
+    log("Duplicates:");
+    logDashedLine();
+    
+    int total = computeProjectMetric(project, countLines);
+    log("Total lines: <total>");
+
+    int duplicates = countDuplicates(project);
+    log("Duplicates: <duplicates>");
+
+    real percentage = percent(duplicates, total);
+    log("Duplication percentage: <percentage>%");
+
+    str duplicatesEvaluation = evaluateDuplicates(percentage);
+    log("Duplication ranking: <duplicatesEvaluation>");
 }
