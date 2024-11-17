@@ -10,6 +10,8 @@ import lang::java::m3::AST;
 import utils::Helpers;
 import Constants;
 
+import utils::SIGEvaluator;
+
 // CC means "cyclomatic complexity"
 
 // This function is taken from article "Empirical analysis of the relationship between CC and SLOC in a large corpus of Java methods and C functions"
@@ -75,8 +77,7 @@ list[list[tuple[int, int, loc, str]]] CC_unitsByRiskRegions(list[tuple[int, int,
 int CC_nLine(list[tuple[int, int, loc, str]] aUnit){
     int n = 0;
     for(unit <- aUnit){
-        if(<nLine, _, _, _> := unit)
-        {
+        if(<nLine, _, _, _> := unit) {
             n += nLine;
         }
     }
@@ -92,4 +93,8 @@ list[int] CC_nLineByRiskCat(loc project){
         ans =  ans + CC_nLine(group);
     }
     return ans;
+}
+
+list[real] countUnitComplexity(loc project) {
+    return riskProfile(CC_nLineByRiskCat(project));
 }

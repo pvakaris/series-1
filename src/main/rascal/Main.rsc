@@ -24,21 +24,25 @@ import Constants;
 void runAnalysisOn(loc project, str projectName) {
     datetime startTime = now();
     log("Running analysis on: <projectName>");
-    logDashedLine();
 
+    logDashedLine();
     analyseVolume(project);
+
     logDashedLine();
     analyseDuplicates(project);
+
     logDashedLine();
     analyseUnitSize(project);
+
     logDashedLine();
     analyseCyclomaticComplexity(project);
+
     // logDashedLine();
     // analyseUnitTesting(project);
 
-    // TODO: Extend by adding more analysis here
     logDashedLine();
     analyseMaintainability(project);
+
     logDashedLine();
     interval runtime = createInterval(startTime, now());
     logDuration("Analysis of the project took:", createDuration(runtime));
@@ -47,8 +51,8 @@ void runAnalysisOn(loc project, str projectName) {
 
 void main() {
     logDashedLine();
-    // runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
-    // runAnalysisOn(HSQLDB_CWD, "HSQLDB Project");
+    runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
+    runAnalysisOn(HSQLDB_CWD, "HSQLDB Project");
     runAnalysisOn(CURRENCY_CONVERTER_CWD, "Currency Converter Project");
 }
 
@@ -57,11 +61,8 @@ void main() {
 private void analyseUnitSize(project) {
     log("Unit Size:");
     logDashedLine();
-
-    list[int] aNL = US_nLineByRiskCat(project);
-
-    list[real] rp = riskProfile(aNL);
-    log("Risk profile (percentage in moderate risk zone, percentage in high risk zone, percentage in very high risk zone): <rp>");
+    list[real] rp = countUnitSize(project);
+    logRiskProfile(rp);
 
     str rank = toRank(levelByRiskProfile(rp));
     log("Unit size ranking: <rank>");
@@ -70,11 +71,8 @@ private void analyseUnitSize(project) {
 private void analyseCyclomaticComplexity(project) {
     log("Cyclomatic Complexity:");
     logDashedLine();
-
-    list[int] aNL = CC_nLineByRiskCat(project);
-
-    list[real] rp = riskProfile(aNL);
-    log("Risk profile (percentage in moderate risk zone, percentage in high risk zone, percentage in very high risk zone): <rp>");
+    list[real] rp = countUnitComplexity(project);
+    logRiskProfile(rp);
 
     str rank = toRank(levelByRiskProfile(rp));
     log("Cyclomatic Complexity ranking: <rank>");
@@ -134,4 +132,14 @@ private void analyseMaintainability(project) {
     // log("Stability: <stability(project)>");
     log("Testability: <testability(project)>");
     log("Overall maintainability: <maintainability(project)>");
+}
+
+private void logRiskProfile(list[real] rp) {
+    assert size(rp) == 3;
+    real low = roundN2(100 - sum(rp)); // Low risk was ommitted in the calculations
+    log("Risk profile percentage per risk zone:");
+    log("Low: <low>%");
+    log("Moderate: <rp[0]>%");
+    log("High: <rp[1]>%");
+    log("Very high: <rp[2]>%");
 }

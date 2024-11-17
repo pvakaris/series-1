@@ -17,10 +17,10 @@ public real ROUNDING_DIGITS = 0.01;
 public int BLOCK_SIZE = 6;
 
 // minimum risk profiles for 5 (4,3,2) star project (used for unit size and unit complexity)
-public list[real] FIVE_STAR_RISK_PROFILE = [25.0, 0.0, 0.0];
-public list[real] FOUR_STAR_RISK_PROFILE = [30.0, 5.0, 0.0];
+public list[real] ONE_STAR_RISK_PROFILE = [25.0, 0.0, 0.0];
+public list[real] TWO_STAR_RISK_PROFILE = [30.0, 5.0, 0.0];
 public list[real] THREE_STAR_RISK_PROFILE = [40.0, 10.0, 0.0];
-public list[real] TWO_STAR_RISK_PROFILE = [50.0, 15.0, 5.0];
+public list[real] FOUR_STAR_RISK_PROFILE = [50.0, 15.0, 5.0];
 
 // threshold between low risk and moderate risk zones for unit size
 public int UNIT_SIZE_MOD_RISK_THR = 30;

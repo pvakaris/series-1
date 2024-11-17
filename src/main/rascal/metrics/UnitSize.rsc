@@ -10,6 +10,8 @@ import lang::java::m3::AST;
 import utils::Helpers;
 import Constants;
 
+import utils::SIGEvaluator;
+
 // US means "unit size"
 
 // This function transforms declarations from Java project into unit info.
@@ -55,8 +57,7 @@ list[list[tuple[int, loc, str]]] US_unitsByRiskRegions(list[tuple[int, loc, str]
 int US_nLine(list[tuple[int, loc, str]] aUnit){
     int n = 0;
     for(unit <- aUnit){
-        if(<nLine, _, _> := unit)
-        {
+        if(<nLine, _, _> := unit) {
             n += nLine;
         }
     }
@@ -72,4 +73,8 @@ list[int] US_nLineByRiskCat(loc project){
         ans =  ans + US_nLine(group);
     }
     return ans;
+}
+
+list[real] countUnitSize(loc project) {
+    return riskProfile(US_nLineByRiskCat(project));
 }

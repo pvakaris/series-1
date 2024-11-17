@@ -13,7 +13,7 @@ void log(value val) {
 }
 
 void logDashedLine() {
-    println("--------------------------------------------");
+    println("------------------------------------------------");
 }
 
 void logEmptyLine() {
