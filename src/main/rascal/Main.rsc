@@ -21,7 +21,6 @@ import metrics::UnitTesting;
 
 import Constants;
 
-
 void runAnalysisOn(loc project, str projectName) {
     datetime startTime = now();
     log("Running analysis on: <projectName>");

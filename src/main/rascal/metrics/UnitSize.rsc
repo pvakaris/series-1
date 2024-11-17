@@ -17,15 +17,12 @@ import Constants;
 // Ouput: list of all units. For each unit the following information: number of lines of code, method location, method name
 list[tuple[int, loc, str]] US_units(list[Declaration] asts){
     list[tuple[int, loc, str]] aUnit = [];
-    visit(asts)
-    {
-        case \method(_, name, _, _, impl) :
-        {
+    visit(asts){
+        case \method(_, name, _, _, impl) :{
             tuple[int, loc, str] tmp = <impl.src.end.line-impl.src.begin.line+1, impl.src, name>;
             aUnit = aUnit + tmp;
         }
-        case \constructor(_, _, _, _, impl) :
-        {
+        case \constructor(_, _, _, _, impl) :{
             tuple[int, loc, str] tmp = <impl.src.end.line-impl.src.begin.line+1, impl.src, "">;
             aUnit = aUnit + tmp;
         }
@@ -38,10 +35,8 @@ list[tuple[int, loc, str]] US_units(list[Declaration] asts){
 // Output: four lists of units (groupped by risk region)
 list[list[tuple[int, loc, str]]] US_unitsByRiskRegions(list[tuple[int, loc, str]] aUnit){
     list[list[tuple[int, loc, str]]] ans = [[], [], [], []];
-    for(unit <- aUnit)
-    {
-        if(<nLine, _, _> := unit)
-        {
+    for(unit <- aUnit){
+        if(<nLine, _, _> := unit){
             if(nLine > UNIT_SIZE_VERY_HIGH_RISK_THR)
                 ans[3] = ans[3] + unit;
             else if(nLine > UNIT_SIZE_HIGH_RISK_THR)
@@ -59,8 +54,7 @@ list[list[tuple[int, loc, str]]] US_unitsByRiskRegions(list[tuple[int, loc, str]
 // Calculates number of lines in give list of units
 int US_nLine(list[tuple[int, loc, str]] aUnit){
     int n = 0;
-    for(unit <- aUnit)
-    {
+    for(unit <- aUnit){
         if(<nLine, _, _> := unit)
         {
             n += nLine;
@@ -74,8 +68,7 @@ list[int] US_nLineByRiskCat(loc project){
     list[tuple[int, loc, str]] aUnit = US_units(asts);
     list[list[tuple[int, loc, str]]] aUnitGroupped = US_unitsByRiskRegions(aUnit);
     list[int] ans = [];
-    for(list[tuple[int, loc, str]] group <- aUnitGroupped)
-    {
+    for(list[tuple[int, loc, str]] group <- aUnitGroupped){
         ans =  ans + US_nLine(group);
     }
     return ans;

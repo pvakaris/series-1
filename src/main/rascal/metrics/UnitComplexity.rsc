@@ -37,15 +37,12 @@ int calcCC(Statement impl){
 // Ouput: list of all units. For each unit the following information: number of lines of code, CC, method location, method name
 list[tuple[int, int, loc, str]] CC_units(list[Declaration] asts){
     list[tuple[int, int, loc, str]] aUnit = [];
-    visit(asts)
-    {
-        case \method(_, name, _, _, impl) :
-        {
+    visit(asts){
+        case \method(_, name, _, _, impl) :{
             tuple[int, int, loc, str] tmp = <impl.src.end.line-impl.src.begin.line+1, calcCC(impl), impl.src, name>;
             aUnit = aUnit + tmp;
         }
-        case \constructor(_, _, _, _, impl) :
-        {
+        case \constructor(_, _, _, _, impl) :{
             tuple[int, int, loc, str] tmp = <impl.src.end.line-impl.src.begin.line+1, calcCC(impl), impl.src, "">;
             aUnit = aUnit + tmp;
         }
@@ -58,10 +55,8 @@ list[tuple[int, int, loc, str]] CC_units(list[Declaration] asts){
 // Output: four lists of units (groupped by risk region)
 list[list[tuple[int, int, loc, str]]] CC_unitsByRiskRegions(list[tuple[int, int, loc, str]] aUnit){
     list[list[tuple[int, int, loc, str]]] ans = [[], [], [], []];
-    for(unit <- aUnit)
-    {
-        if(<_, CC, _, _> := unit)
-        {
+    for(unit <- aUnit){
+        if(<_, CC, _, _> := unit){
             if(CC > CC_VERY_HIGH_RISK_THR)
                 ans[3] = ans[3] + unit;
             else if(CC > CC_HIGH_RISK_THR)
@@ -79,8 +74,7 @@ list[list[tuple[int, int, loc, str]]] CC_unitsByRiskRegions(list[tuple[int, int,
 // Calculates number of lines in give list of units
 int CC_nLine(list[tuple[int, int, loc, str]] aUnit){
     int n = 0;
-    for(unit <- aUnit)
-    {
+    for(unit <- aUnit){
         if(<nLine, _, _, _> := unit)
         {
             n += nLine;
@@ -94,8 +88,7 @@ list[int] CC_nLineByRiskCat(loc project){
     list[tuple[int, int, loc, str]] aUnit = CC_units(asts);
     list[list[tuple[int, int, loc, str]]] aUnitGroupped = CC_unitsByRiskRegions(aUnit);
     list[int] ans = [];
-    for(list[tuple[int, int, loc, str]] group <- aUnitGroupped)
-    {
+    for(list[tuple[int, int, loc, str]] group <- aUnitGroupped){
         ans =  ans + CC_nLine(group);
     }
     return ans;
