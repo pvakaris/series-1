@@ -30,6 +30,10 @@ void runAnalysisOn(loc project, str projectName) {
     analyseVolume(project);
     logDashedLine();
     analyseDuplicates(project);
+    logDashedLine();
+    analyseUnitSize(project);
+    logDashedLine();
+    analyseCyclomaticComplexity(project);
     // logDashedLine();
     // analyseUnitTesting(project);
 
@@ -44,12 +48,37 @@ void runAnalysisOn(loc project, str projectName) {
 
 void main() {
     logDashedLine();
-    // runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
-    // runAnalysisOn(HSQLDB_CWD, "HSQLDB Project");
-    runAnalysisOn(CURRENCY_CONVERTER_CWD, "Currency converter project");
+    runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
+    runAnalysisOn(HSQLDB_CWD, "HSQLDB Project");
 }
 
 // PRIVATE METHODS
+
+private void analyseUnitSize(project) {
+    log("Unit Size:");
+    logDashedLine();
+
+    list[int] aNL = US_nLineByRiskCat(project);
+
+    list[real] rp = riskProfile(aNL);
+    log("Risk profile (percentage in moderate risk zone, percentage in high risk zone, percentage in very high risk zone): <rp>");
+
+    str rank = toRank(levelByRiskProfile(rp));
+    log("Unit size ranking: <rank>");
+}
+
+private void analyseCyclomaticComplexity(project) {
+    log("Cyclomatic Complexity:");
+    logDashedLine();
+
+    list[int] aNL = CC_nLineByRiskCat(project);
+
+    list[real] rp = riskProfile(aNL);
+    log("Risk profile (percentage in moderate risk zone, percentage in high risk zone, percentage in very high risk zone): <rp>");
+
+    str rank = toRank(levelByRiskProfile(rp));
+    log("Cyclomatic Complexity ranking: <rank>");
+}
 
 private void analyseVolume(project) {
     log("Volume:");
