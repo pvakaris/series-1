@@ -54,8 +54,7 @@ str toRank(int score) {
 // util function for the following function.
 // This function takes risk profile of a system and threshold for risk profile.
 // This function returns true if risk profile is lower then given threshold and and false otherwise.
-bool lower(list[real] profile, list[real] thr)
-{
+bool lower(list[real] profile, list[real] thr){
     return profile[0]<=thr[0] && profile[1]<=thr[1] && profile[2]<=thr[2];
 }
 
@@ -65,8 +64,7 @@ bool lower(list[real] profile, list[real] thr)
 // 2 o
 // 3 -
 // 4 --
-int levelByRiskProfile(list[real] profile)
-{
+int levelByRiskProfile(list[real] profile){
     if(lower(profile, FIVE_STAR_RISK_PROFILE))
         return 0;
     if(lower(profile, FOUR_STAR_RISK_PROFILE))
@@ -80,8 +78,7 @@ int levelByRiskProfile(list[real] profile)
 
 // Input: 4 numbers: LOC in low risk zone; LOC in moderate risk zone; LOC in high risk zone; LOC in very high risk zone
 // Output: risk profile
-list[real] riskProfile(list[int] aNL)
-{
+list[real] riskProfile(list[int] aNL){
     assert size(aNL) == 4;
     real totalLines = (aNL[0] + aNL[1] + aNL[2] + aNL[3])*1.0;
     return [aNL[1]*1.0/totalLines*100.0, aNL[2]*1.0/totalLines*100.0, aNL[3]*1.0/totalLines*100.0];

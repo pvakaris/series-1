@@ -15,8 +15,7 @@ import Constants;
 // This function transforms declarations from Java project into unit info.
 // Input: all declarations from Java project
 // Ouput: list of all units. For each unit the following information: number of lines of code, method location, method name
-list[tuple[int, loc, str]] US_units(list[Declaration] asts)
-{
+list[tuple[int, loc, str]] US_units(list[Declaration] asts){
     list[tuple[int, loc, str]] aUnit = [];
     visit(asts)
     {
@@ -37,8 +36,7 @@ list[tuple[int, loc, str]] US_units(list[Declaration] asts)
 // Groups all units into for risk regions: without risk, moderate risk, high risk, very high risk
 // Input: list of units
 // Output: four lists of units (groupped by risk region)
-list[list[tuple[int, loc, str]]] US_unitsByRiskRegions(list[tuple[int, loc, str]] aUnit)
-{
+list[list[tuple[int, loc, str]]] US_unitsByRiskRegions(list[tuple[int, loc, str]] aUnit){
     list[list[tuple[int, loc, str]]] ans = [[], [], [], []];
     for(unit <- aUnit)
     {
@@ -59,8 +57,7 @@ list[list[tuple[int, loc, str]]] US_unitsByRiskRegions(list[tuple[int, loc, str]
 }
 
 // Calculates number of lines in give list of units
-int US_nLine(list[tuple[int, loc, str]] aUnit)
-{
+int US_nLine(list[tuple[int, loc, str]] aUnit){
     int n = 0;
     for(unit <- aUnit)
     {
@@ -72,8 +69,7 @@ int US_nLine(list[tuple[int, loc, str]] aUnit)
     return n;
 }
 
-list[int] US_nLineByRiskCat(loc project)
-{
+list[int] US_nLineByRiskCat(loc project){
     list[Declaration] asts = getASTsDirectory(project);
     list[tuple[int, loc, str]] aUnit = US_units(asts);
     list[list[tuple[int, loc, str]]] aUnitGroupped = US_unitsByRiskRegions(aUnit);

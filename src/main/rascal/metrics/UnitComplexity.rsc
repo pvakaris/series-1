@@ -35,8 +35,7 @@ int calcCC(Statement impl){
 // This function transforms declarations from Java project into unit info.
 // Input: all declarations from Java project
 // Ouput: list of all units. For each unit the following information: number of lines of code, CC, method location, method name
-list[tuple[int, int, loc, str]] CC_units(list[Declaration] asts)
-{
+list[tuple[int, int, loc, str]] CC_units(list[Declaration] asts){
     list[tuple[int, int, loc, str]] aUnit = [];
     visit(asts)
     {
@@ -57,8 +56,7 @@ list[tuple[int, int, loc, str]] CC_units(list[Declaration] asts)
 // Groups all units into for risk regions: without risk, moderate risk, high risk, very high risk
 // Input: list of units
 // Output: four lists of units (groupped by risk region)
-list[list[tuple[int, int, loc, str]]] CC_unitsByRiskRegions(list[tuple[int, int, loc, str]] aUnit)
-{
+list[list[tuple[int, int, loc, str]]] CC_unitsByRiskRegions(list[tuple[int, int, loc, str]] aUnit){
     list[list[tuple[int, int, loc, str]]] ans = [[], [], [], []];
     for(unit <- aUnit)
     {
@@ -79,8 +77,7 @@ list[list[tuple[int, int, loc, str]]] CC_unitsByRiskRegions(list[tuple[int, int,
 }
 
 // Calculates number of lines in give list of units
-int CC_nLine(list[tuple[int, int, loc, str]] aUnit)
-{
+int CC_nLine(list[tuple[int, int, loc, str]] aUnit){
     int n = 0;
     for(unit <- aUnit)
     {
@@ -92,8 +89,7 @@ int CC_nLine(list[tuple[int, int, loc, str]] aUnit)
     return n;
 }
 
-list[int] CC_nLineByRiskCat(loc project)
-{
+list[int] CC_nLineByRiskCat(loc project){
     list[Declaration] asts = getASTsDirectory(project);
     list[tuple[int, int, loc, str]] aUnit = CC_units(asts);
     list[list[tuple[int, int, loc, str]]] aUnitGroupped = CC_unitsByRiskRegions(aUnit);
