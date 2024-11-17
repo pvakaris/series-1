@@ -15,3 +15,19 @@ public real ROUNDING_DIGITS = 0.01;
 
 // DUPLICATES Constants
 public int BLOCK_SIZE = 6;
+
+// minimum risk profiles for 5 (4,3,2) star project (used for unit size and unit complexity)
+public list[real] FIVE_STAR_RISK_PROFILE = [25.0, 0.0, 0.0];
+public list[real] FOUR_STAR_RISK_PROFILE = [30.0, 5.0, 0.0];
+public list[real] THREE_STAR_RISK_PROFILE = [40.0, 10.0, 0.0];
+public list[real] TWO_STAR_RISK_PROFILE = [50.0, 15.0, 5.0];
+
+// threshold between low risk and moderate risk zones for unit size
+public int UNIT_SIZE_MOD_RISK_THR = 30;
+public int UNIT_SIZE_HIGH_RISK_THR = 44;
+public int UNIT_SIZE_VERY_HIGH_RISK_THR = 74;
+
+// threshold between low risk and moderate risk zones for cyclomatic complexity
+public int CC_MOD_RISK_THR = 10;
+public int CC_HIGH_RISK_THR = 20;
+public int CC_VERY_HIGH_RISK_THR = 50;
