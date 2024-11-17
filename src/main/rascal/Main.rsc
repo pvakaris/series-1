@@ -46,7 +46,7 @@ void main() {
     logDashedLine();
     // runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
     // runAnalysisOn(HSQLDB_CWD, "HSQLDB Project");
-    runAnalysisOn(CURRENCY_CONVERTER_CWD, "Currency converter project");
+    runAnalysisOn(CURRENCY_CONVERTER_CWD, "Currency Converter Project");
 }
 
 // PRIVATE METHODS
