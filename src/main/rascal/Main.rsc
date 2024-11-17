@@ -47,8 +47,9 @@ void runAnalysisOn(loc project, str projectName) {
 
 void main() {
     logDashedLine();
-    runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
-    runAnalysisOn(HSQLDB_CWD, "HSQLDB Project");
+    // runAnalysisOn(SMALLSQL_CWD, "SmallSQL Project");
+    // runAnalysisOn(HSQLDB_CWD, "HSQLDB Project");
+    runAnalysisOn(CURRENCY_CONVERTER_CWD, "Currency Converter Project");
 }
 
 // PRIVATE METHODS
